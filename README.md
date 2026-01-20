@@ -1,5 +1,2 @@
-#Docker-Kubernetes
-This repository is for deep learning
-#Docker
-#Kubernetes
-#Swarm
+# Docker | Kubernetes | Swarm
+Deep Learning Deployment Repository
