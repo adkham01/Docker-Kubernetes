@@ -1,0 +1,51 @@
+docker version
+docker info
+docker
+docker container run
+docker run
+docker container run --publish 80:80 nginx
+docker container run --publish 80:80 --detach nginx
+docker ps
+docker container ls
+docker container stop
+docker container ls -a
+docker container run --publish 80:80 --detach --name webhost_wolf nginx
+docker container logs webhost_wolf
+docker container top webhost_wolf
+docker container top webhost_wolf
+docker container rm -f
+docker run --name mongo -d mongo
+ps aux
+docker stop mongo
+docker container run -d -p 8080:8081 --name server httpd
+docker container run -d -p 3306:3306 --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes  mysql
+docker container db
+docker container top
+docker container inspect
+docker container stats
+docker container run -it -start new container interactively
+docker container exec -it run additional command in existing container
+docker container run --help
+docker container run -it --name proxy nginx bash
+docker network ls
+docker network inspect
+docker network create --driver
+docker network connect
+docker network disconnect
+docker container run -d --name nginx --network my_network nginx:alpine
+docker network inspect my_network
+docker network disconnect 137cfe168b45 ed46
+docker history
+docker image tag
+docker image build -t
+docker image prune -a
+docker system prune
+docker system df
+docker volume ls
+docker volume prune
+docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -v mysql-db:/var/lib/mysql mysql:latest
+docker container run -d --name nginx -p 80:80 -v $(pwd):/usr/share/nginx/html nginx:alpine
+docker container exec -it nginx bash
+docker volume create
+docker run --name postgres-15 -e POSTGRES_PASSWORD=dummy -d --volume postgres-volume postgres:15-alpine
+docker exec -it postgres-15 psql -U postgres

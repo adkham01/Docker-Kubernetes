@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple JS App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111827;
+            color: #f9fafb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .box {
+            background: #1f2933;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #3b82f6;
+            color: white;
+            font-size: 16px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>🚀 Simple JS App</h1>
+        <p id="message">Click the button</p>
+        <button onclick="changeText()">Click me</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
