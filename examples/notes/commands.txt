@@ -49,3 +49,6 @@ docker container exec -it nginx bash
 docker volume create
 docker run --name postgres-15 -e POSTGRES_PASSWORD=dummy -d --volume postgres-volume postgres:15-alpine
 docker exec -it postgres-15 psql -U postgres
+docker run -p 80:40 -v $(pwd):/site bretfisher/jekyll-serve
+docker build -t hostname .
+docker run --name myshell -it mysql sh
