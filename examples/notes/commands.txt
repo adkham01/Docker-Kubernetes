@@ -52,3 +52,4 @@ docker exec -it postgres-15 psql -U postgres
 docker run -p 80:40 -v $(pwd):/site bretfisher/jekyll-serve
 docker build -t hostname .
 docker run --name myshell -it mysql sh
+docker run -it --entrypoint sh cmatrix
