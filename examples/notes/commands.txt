@@ -53,3 +53,7 @@ docker run -p 80:40 -v $(pwd):/site bretfisher/jekyll-serve
 docker build -t hostname .
 docker run --name myshell -it mysql sh
 docker run -it --entrypoint sh cmatrix
+docker compose up --build
+docker compose down -v
+docker compose down -v
+docker compose down --rmi local

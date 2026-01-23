@@ -1,0 +1,27 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: drupal.Dockerfile
+    image: drupal-custom
+    ports:
+      - "8080:80"
+    environment:
+      DRUPAL_DB_HOST: db
+      DRUPAL_DB_NAME: drupal
+      DRUPAL_DB_USER: drupal
+      DRUPAL_DB_PASSWORD: drupal
+    volumes:
+      - ./html:/var/www/html
+
+  db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: drupal
+      POSTGRES_PASSWORD: drupal
+      POSTGRES_DB: drupal
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
