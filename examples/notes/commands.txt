@@ -57,3 +57,18 @@ docker compose up --build
 docker compose down -v
 docker compose down -v
 docker compose down --rmi local
+docker swarm init
+docker service create alpine ping 8.8.8.8
+docker service ls
+docker service ps 9c
+docker service update 9cbq9knbsbe6 --replicas 3
+docker update
+docker service update
+docker network create -d bridge docker_gwbridge
+docker network create --driver overlay mydrupal
+docker service create --name psql --network mydrupal -e POSTGRES_PASSWORD=mypass postgres:alpine
+docker service ls
+docker service ps psql
+docker container logs psql.1.pjazg6ouejwqebj4orcct1a2h
+docker service create --name drupal --network mydrupal -p 80:80 drupal
+docker service inspect drupal
