@@ -1,0 +1,29 @@
+services:
+  drupal:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-sites:/var/www/html/sites
+      - ./themes:/var/www/html/themes
+
+  postgres:
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/psql_pw 
+    secrets:
+      - psql_pw
+    volumes:
+      - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal-data:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
+
+secrets:
+  psql_pw:
+    file: .smple-2/secrets/psql_pw.txt
