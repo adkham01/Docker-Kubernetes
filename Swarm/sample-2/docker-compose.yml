@@ -1,0 +1,15 @@
+services:
+  psql:
+    image: postgres:alpine
+    secrets:
+      - psql_user
+      - psql_password
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/psql_password
+      POSTGRES_USER_FILE: /run/secrets/psql_user
+
+secrets:
+  psql_user:
+    file: ./secrets/psql_user.txt
+  psql_password:
+    file: ./secrets/psql_password.txt

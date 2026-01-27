@@ -1,0 +1,36 @@
+services:
+  web:
+    image: drupal:latest
+    depends_on:
+      - db
+    build: .  
+    ports:
+      - "8080:80"
+    environment:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-sites:/var/www/html/sites
+      - drupal-themes:/var/www/html/themes
+    volumes:
+      - ./html:/var/www/html
+
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/psql-pw
+    secrets:
+      - psql-pw  
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
+
+secrets:
+  psql-pw:
+    external:
+      true
