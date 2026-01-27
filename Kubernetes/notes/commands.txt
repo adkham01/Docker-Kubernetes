@@ -1,0 +1,12 @@
+Kubernetes Run, Create, and Aply 
+> alias k=kubectl
+> k run
+> k create 
+> k apply
+> k version
+k get pods
+k create deployment my-nginx --image nginx
+k delete pod my-nginx
+k delete deployment my-nginx
+k create deployment my-apache --image httpd
+k scale deploy my-apache --replicas 2
