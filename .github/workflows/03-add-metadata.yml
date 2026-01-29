@@ -1,0 +1,45 @@
+name: Build with Metadata
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-image:
+    if: false
+    name: Build image with metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Docker Hub    
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Docker meta data 
+        id: meta-data
+        uses: docker/metadata-action@v4    
+        with:
+          images: |
+            adkham01/all-hands
+          tags: |  
+            type=raw, value=04
+            type=raw, value=latest, enable=${{ endWith(github.ref, 'main') }}
+            type=sha, value=${{ github.sha }}
+            type=ref, event=branch
+            type=semver, pattern={{version}}
+      - name: Docker Build with Metadata
+        uses: docker/build-push-action@v4
+        with:
+          # push: ${{ github.event_name != 'pull_request' }}
+          push: false
+          tags: ${{ steps.meta-data.outputs.tags }}
+          labels: ${{ steps.meta-data.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
