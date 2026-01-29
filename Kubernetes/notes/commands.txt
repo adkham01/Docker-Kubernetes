@@ -10,3 +10,30 @@ k delete pod my-nginx
 k delete deployment my-nginx
 k create deployment my-apache --image httpd
 k scale deploy my-apache --replicas 2
+k get deploy/my-apache
+k get deploy/my-apache -o wide/yml/json
+k describe deploy/my-apache 
+k get nodes
+k get node docker-desktop -o yaml
+k get pods -w
+k get events --watch-only
+k get events
+k logs deploy/my-apache
+k logs deploy/my-apache --follow --tail 1
+k logs pod/my-apache-5c789d6ff-4qlmk -c httpd
+k create depoyment httpenv --image=bretfisher/httpenv
+k scale deployment httpenv --replicas=5
+k expose deployment httpenv --port 8888
+k run tpm-shell --rm -it --image bretfisher/netshoot --bash
+k run tmp-shell --rm -it --image bretfisher/netshoot -- bash
+k expose deployment httpenv --port 8888 --name httpenv-np --type NodePort
+k expose deployment/httpenv --port 8888 --name httpenv-lb --type LoadBalancer
+k create deployment test --image nginx --dry-run=client -o yaml
+k create job test --image nginx --dry-run=client -o yaml
+
+Imperative Commands: 
+  - run
+  - expose
+  - scale
+  - edit 
+  - create deployment
