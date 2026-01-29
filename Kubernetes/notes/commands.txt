@@ -37,3 +37,13 @@ Imperative Commands:
   - scale
   - edit 
   - create deployment
+
+k api-versions  
+k api-resources
+k explain services --recursive
+k explain services.spec
+k explain deployment.spec.template.spec.volumes.nfc.server
+k apply -f app.yml --dry-run=server
+k diff -f app.yml
+k get pods -l app=nginx
+k get namespaces
