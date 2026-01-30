@@ -1,0 +1,39 @@
+Fundamentals
+------------
+k run nginx --image nginx
+k get pods
+k describe pod nginx
+k get pods -o wide
+
+Resources
+---------
+k apply -f pod-definition.yml
+k create -f replicaset-definition.yml
+k get replicaset
+k delete replicaset myapp-replicaset
+k replace -f replicaset-definition.yml
+k scale --replicas=6 replicaset-definition.yml
+k get replicaset
+k edit replicaset myapp-replicaset
+k scale replicaset myapp-replicaset --replicas=2
+
+Deployment: Project manager 👨‍💼
+ReplicaSet: Team leader 👩‍🏫
+Pods: Workers 👷
+
+k rollout status deployment/myapp-deployment
+k rollout undo deployment myapp-deployment
+k rollout history deployment.apps/myapp-deployment
+k create -f deployment.yml --record
+k edit deployment myapp-deployment --record=true
+
+K create deployment --image=nginx nginx 
+k expose deployment nginx --port 80
+k edit deployment nginx
+k scale deployment nginx --replicas=5
+k set image deployment nginx nginx=nginx:1.18
+k create -f nginx.yml 
+k replace -f nginx.yml
+k delete -f nginx.yml
+k replace --force -f nginx.yml
+k explain pods --recursive
