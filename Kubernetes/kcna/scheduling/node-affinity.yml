@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=null
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-affinity
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: topology.kubernetes.io/zone
+            operator: In
+            values:
+            - ssd
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: region
+            operator: In
+            values:
+            - us-west-1
+            - us-west-2
+  containers:
+  - name: node-affinity
+    image: busybox

@@ -37,3 +37,30 @@ k replace -f nginx.yml
 k delete -f nginx.yml
 k replace --force -f nginx.yml
 k explain pods --recursive
+k apply -f /path/to/config-files
+
+Namespace
+---------
+k create -f pod-definition.yml --namespace=dev
+k create namespace dev
+k config set-context $(kubectl config current-context) --namespace=dev
+k get pods --namespace=default
+k get pods --namespace=prod
+k config set-context $(kubectl config current-context) --namespace=prod
+k get pods --all-namespaces
+
+Scheduling
+----------
+k get pods --selector app=App1
+k taint nodes node-name key=value:taint-effect
+k taint nodes node1 app=blue:NoSchedule
+k describe node kubemaster | grep Taint
+k label nodes <node-name> <label-key>=<label-value>
+k label nodes node-1 size=Large
+  - nodeSelector = simple filter
+  - nodeAffinity = powerful filter (required/preferred)
+  - Node Affinity: Pod chooses where to run.
+  - Taints/Tolerations: Node controls who can run.
+k create - f daemon-set.yml  
+k get daemonsets
+k describe daemonsets monitoring-daemon
