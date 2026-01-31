@@ -1,0 +1,6 @@
+o genrsa --out ca.key 2048
+o req -new -key ca.key -subj "//CN=KUBERNETES-CA" -out ca.cer
+o x509 -req -in ca.csr -signkey ca.key -out ca.crt
+o genrsa -out admin.key 2048
+o req -new -key admin.key -subj "//CN=kube-admin" -out admin.csr
+o x509 -req -in admin.csr -CA ca.crt -CAkey ca.key -out admin.crt

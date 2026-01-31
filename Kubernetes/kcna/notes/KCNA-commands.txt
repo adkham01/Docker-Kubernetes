@@ -59,8 +59,18 @@ k label nodes <node-name> <label-key>=<label-value>
 k label nodes node-1 size=Large
   - nodeSelector = simple filter
   - nodeAffinity = powerful filter (required/preferred)
-  - Node Affinity: Pod chooses where to run.
-  - Taints/Tolerations: Node controls who can run.
-k create - f daemon-set.yml  
-k get daemonsets
-k describe daemonsets monitoring-daemon
+  - Node Affinity: Pod chooses where to run
+
+Security
+--------
+o genrsa --out ca.key 2048
+o req -new -key ca.key -subj "//CN=KUBERNETES-CA" -out ca.cer
+o x509 -req -in ca.csr -signkey ca.key -out ca.crt
+o genrsa -out admin.key 2048
+o req -new -key admin.key -subj "//CN=kube-admin" -out admin.csr
+o x509 -req -in admin.csr -CA ca.crt -CAkey ca.key -out admin.crt
+o req -new -key apiserver.key -subj "//CN=kube-apiserver" -out \
+apiserver.csr -config openssl.cnf
+openssl x509 -req -in apiserver.csr -CA ../ca.crt   -CAkey ../ca.key \
+-CAcreateserial -out apiserver.crt -extensions v3_req -extfile openssl.cnf \
+-days 1000
