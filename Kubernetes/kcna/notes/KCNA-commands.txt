@@ -74,3 +74,34 @@ apiserver.csr -config openssl.cnf
 openssl x509 -req -in apiserver.csr -CA ../ca.crt   -CAkey ../ca.key \
 -CAcreateserial -out apiserver.crt -extensions v3_req -extfile openssl.cnf \
 -days 1000
+k config view
+k config view --kubeconfig=my-custom-config
+k config use-context prod-user@prod = t change currnt context
+k create -f developer-reole.
+k get roles
+k get rolebindings
+k describe role developer
+k describe rolebinding devuser-developer-bindings
+k auth can-i create deployments
+k auth can-i delete nodes
+k auth can-i create deployments --as dev-user
+k auth can-i create pods --as dev-user --namespace test
+k api-resources --namespaced=true
+k create -f cluster-admin-role-binding.yml
+k create serviceaccount dashboard-sa
+k create serviceaccount dashboard-sa
+k get serviceaccount
+k describe serviceaccount dashboard-sa
+k create token dashboard-sa
+k create token dashboard-sa | jq -R '{"token": .}' > token.json
+
+k create secret docker-registry regcred \
+--docker-server= private-registry.io    \
+--docker-username= registry-user        \
+--docker-password= registry-password    \
+--docker-email= registry-user@gmail.com 
+
+
+Token
+-----
+echo "YOUR_JWT" | cut -d'.' -f2 | base64 -d | jq .

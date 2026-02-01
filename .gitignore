@@ -154,3 +154,12 @@ $RECYCLE.BIN/
 # reference pdf's
 references/*.pdf
 .vscode
+*-token.json
+*-token.txt
+*.code-workspace
+*.key
+*.secret
+*.pem
+*.crt 
+*.crs 
+*.srl

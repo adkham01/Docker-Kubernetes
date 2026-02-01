@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubernetes-dashboard
+
+spec:
+  containers:
+    - name: kubernetes-dashboard
+      image: kubernetesui/dashboard:v2.0.0
+  serviceAccountname: dashboard-sa
+  automountServiceAccountToken: false
