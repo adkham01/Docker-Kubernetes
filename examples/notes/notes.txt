@@ -1,0 +1,30 @@
+difference between Image vs.Container
+
+if we do rm -f running container will be removed
+
+Persistent Data: Bind Voluming
+Persistent Data: Bind Mounting
+FROM - lets me select base image always needed to start the build
+ENV - environment variables and layer build statements in the container created 
+from that image
+WORKDIR - Propper way to change the directory
+COPY - for copying the source files 
+RUN - universal way to run any commands inside the container image
+EXPOSE tells which port created apllication needs to listen on
+CMD - default command when the command executes
+it will store container metadata and it will run when I start the container image
+
+ENTRYPOINT ["./startup.sh]
+CMD ["phyton", "app.py"]
+
+RUN -> use shell by default
+ENTRYPOINT -> Always use Exec 
+CMD -> use Exec by default
+
+ROUTING Mesh
+This is stateless load balancing 
+This LB is OSI Layer 3 
+
+POSTGRES_PASSWORD_FILE=/run/secrets/psql_pass
+when we use this the image will look for /run/secrets/ file and load these as 
+ENV variables

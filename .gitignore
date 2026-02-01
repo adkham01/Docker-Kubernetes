@@ -172,11 +172,8 @@ secrets/
 .env.local
 .env.*.local
 
-# Kubernetes configs (if they contain tokens)
 kubeconfig*
 config
 
-# Password files
 *.pass
 *.password
-*
