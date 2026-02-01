@@ -151,15 +151,32 @@ $RECYCLE.BIN/
 # vscode tmp files
 .dccache
 
-# reference pdf's
-references/*.pdf
-.vscode
-*-token.json
-*-token.txt
-*.code-workspace
+# Private keys and certificates
 *.key
-*.secret
 *.pem
-*.crt 
-*.crs 
+*.crt
+*.cer
+*.csr
+*.p12
+*.pfx
+
+# Certificate Authority files
 *.srl
+
+# Secrets and tokens
+*.secret
+*.jwt
+*.token
+secrets/
+.env
+.env.local
+.env.*.local
+
+# Kubernetes configs (if they contain tokens)
+kubeconfig*
+config
+
+# Password files
+*.pass
+*.password
+*
