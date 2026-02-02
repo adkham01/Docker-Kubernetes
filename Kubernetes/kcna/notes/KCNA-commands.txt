@@ -105,3 +105,8 @@ k create secret docker-registry regcred \
 Token
 -----
 echo "YOUR_JWT" | cut -d'.' -f2 | base64 -d | jq .
+
+Storage
+-------
+k get persistentvolume
+kubectl delete pvc myclain

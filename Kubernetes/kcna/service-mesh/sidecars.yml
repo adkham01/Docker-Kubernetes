@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-nginx
+  labels:
+    app.kubernetes.io/name: myapp-nginx
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx 
+    volumeMounts:
+  - name: sidecar-container
+    image: fluent/fluentd
+    volumeMounts:    
+    - name: shared-data
+      mountPath: /pod-data
+      
