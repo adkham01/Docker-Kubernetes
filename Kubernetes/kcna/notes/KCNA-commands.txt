@@ -110,3 +110,14 @@ Storage
 -------
 k get persistentvolume
 kubectl delete pvc myclain
+
+Cloud Native Architecture
+-------------------------
+k create -f hpa.yml
+k get hpa
+
+VPA system:
+  - VPA: calculates recommendations
+  - VPA Admission Controller: applies on new pods
+  - VPA Updater: restarts old pods to apply changes
+  # Use Windows-style path with forward slashes

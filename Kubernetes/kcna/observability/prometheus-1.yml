@@ -1,0 +1,24 @@
+global:
+  scrape_interval: "1m"
+  scrape_timeout: "10s"
+scrape_configs:
+  - job_name: 'node'
+    scrape_interval: 15s
+    scrape_timeout: 5s
+    sample_limit: 1000
+    static_configs:
+      - targets: ['127.0.0.1:9100']
+
+# Configuratin related to AlertManager
+alerting:
+  
+# Rule files specifiles a list of files rules are read from
+rule_files:
+
+# Settins related to the remote read/write feature
+remote_read:
+  
+remote_write:
+  
+# Storage related settings
+storage:
