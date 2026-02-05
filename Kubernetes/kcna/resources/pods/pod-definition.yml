@@ -1,14 +1,12 @@
 apiVersion: v1
-
 kind: Pod
-
 metadata:
   name: my-apache
   labels:
-    app: my-apache
-    tier: front-end
+    app: myapp
+    type: front-end
 
 spec:
   containers:
     - name: apache-container
-      image: httpd:2.4
+      image: httpd:alpine

@@ -1,21 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-deployment
+  name: my-dep
   labels:
     tier: frontend
-    app: nginx
+    app: my-dep
 spec:
   selector:
     matchLabels:
-      app: myapp
-  replicas: 3   
+      app: my-apache
+  replicas: 5
   template:
     metadata:
       name: nginx
       labels:
-        app: myapp
+        app: my-apache
     spec:
       containers:
-      - name: nginx 
-        image: nginx
+      - name: my-apache
+        image: httpd:alpine
+        ports:
+          - containerPort: 80
+        
