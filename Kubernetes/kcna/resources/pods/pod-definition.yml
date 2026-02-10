@@ -3,10 +3,12 @@ kind: Pod
 metadata:
   name: my-apache
   labels:
-    app: myapp
-    type: front-end
+    name: my-httpd
 
 spec:
   containers:
     - name: apache-container
       image: httpd:alpine
+        ports:
+          - containerPort: 80
+            name: httpd

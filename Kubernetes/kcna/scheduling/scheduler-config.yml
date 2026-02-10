@@ -1,0 +1,12 @@
+apiversion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: myscheduler-2
+    plugins:
+      score:
+      disabled:
+        - name: TaintToleration
+      enabled:
+        - name: MyCustomPluginA
+        - name: MyCustomPluginB
+  schedulerName: my      
