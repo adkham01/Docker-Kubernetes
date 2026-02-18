@@ -58,7 +58,7 @@ k describe node kubemaster | grep Taint
 k label nodes <node-name> <label-key>=<label-value>
 k label nodes node-1 size=Large
   - nodeSelector = simple filter
-  - nodeAffinity = powerful filter (required/preferred)
+  - nodeAffinity = pow erful filter (required/preferred)
   - Node Affinity: Pod chooses where to run
 
 Security
@@ -121,3 +121,4 @@ VPA system:
   - VPA Admission Controller: applies on new pods
   - VPA Updater: restarts old pods to apply changes
   # Use Windows-style path with forward slashes
+  notes.kaiwalyakoparkar.com/kcna

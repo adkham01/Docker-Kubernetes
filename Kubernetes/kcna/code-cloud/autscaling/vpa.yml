@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: VertualPodAutoscaler
+metadata:
+  name: vpa-webapp
+spec:
+  targetRef:
+    apiVersion: "v1"
+    kind: Pod
+    name: nginx
+  updatePolicy:
+    updateMode: "Auto"  
