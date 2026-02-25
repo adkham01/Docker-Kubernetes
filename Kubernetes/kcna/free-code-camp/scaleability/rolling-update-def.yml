@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-nginx
+spec:
+  replicas: 3
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2 # how many pods can we add at a time
+      maxUnavailable: 0 # how many pods can be unavailable
+  selector:
+    matchLabels:
+      app: myapp-nginx
+  template:
+    metadata:
+      labels:
+        app: myapp-nginx
+    spec:
+      containers:
+      - name: myapp-nginx
+        image: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
