@@ -122,3 +122,6 @@ VPA system:
   - VPA Updater: restarts old pods to apply changes
   # Use Windows-style path with forward slashes
   notes.kaiwalyakoparkar.com/kcna
+
+Services
+ k expose deployment java-app --port=8080 --target-port=8080  
