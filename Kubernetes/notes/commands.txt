@@ -51,4 +51,4 @@ k get namespaces
 KCSA
 kubectl config --kubeconfig=/root/my-kube-config use-context research
 kubectl label ns payroll pod-security.kubernetes.io/<mode>=<security standard>
-no command this is a test
+no command this is a test 3
