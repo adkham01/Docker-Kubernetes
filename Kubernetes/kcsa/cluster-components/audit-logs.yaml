@@ -1,0 +1,15 @@
+apiVersion: audit.k8s/io/v1
+kind: Policy
+rules:
+  # Log all requests from the kube-proxy user
+  - level: Metadata
+    users: ["system:kube-proxy"]
+
+  # Log all other high-level metadata (optional)
+  - level: Metadata
+    resources:
+      - group: ""
+        resources: ["pods", "services", "endpoints"]
+
+  # Default level for everything else
+  - level: None

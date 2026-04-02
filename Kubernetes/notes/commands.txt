@@ -47,3 +47,7 @@ k apply -f app.yml --dry-run=server
 k diff -f app.yml
 k get pods -l app=nginx
 k get namespaces
+
+KCSA
+kubectl config --kubeconfig=/root/my-kube-config use-context research
+kubectl label ns payroll pod-security.kubernetes.io/<mode>=<security standard>

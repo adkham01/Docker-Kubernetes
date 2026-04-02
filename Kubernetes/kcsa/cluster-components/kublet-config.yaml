@@ -1,4 +1,4 @@
-apiVersion: kublet,config.k8s.io/v1beta1
+apiVersion: kublet.config.k8s.io/v1beta1
 kind: KubletConfiguration
 clusterDomain: cluster.local
 fileCheckFrequency: 0s
@@ -7,3 +7,9 @@ clusterDNS:
   - 10.96.0.1
 httpCheckFrequency: 0s
 syncFrequency: 0s
+authentication:
+  anonymous:
+    enabled: false
+  webhook:
+    cacheTTL: 0s
+    enabled: true
