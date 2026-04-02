@@ -51,3 +51,6 @@ k get namespaces
 KCSA
 kubectl config --kubeconfig=/root/my-kube-config use-context research
 kubectl label ns payroll pod-security.kubernetes.io/<mode>=<security standard>
+kubectl describe pod kube-apiserver-controlplane -n kube-system
+k get pods --as  dev-user
+k create role developer --verb=list,create,delete --resource=pods
