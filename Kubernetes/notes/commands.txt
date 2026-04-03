@@ -54,3 +54,17 @@ kubectl label ns payroll pod-security.kubernetes.io/<mode>=<security standard>
 kubectl describe pod kube-apiserver-controlplane -n kube-system
 k get pods --as  dev-user
 k create role developer --verb=list,create,delete --resource=pods
+k get pods --namespace=kube-system --no-headers | wc -l
+
+Secrets
+-------
+k create secret generic my-secret --from-litecccral=key=value \
+  --from-literal=DB_User=root
+k create secret generic my-secret --from-file=<path-to-file>  
+k create namespace dev
+k config set-context $(kubectl config current-context) --namespace=dev
+k get pods -n=research
+k run redis --image=redis -n-finance
+k replace --force -f /tmp/kubectl-edit-23567.yaml
+k get pod ubuntu -o yaml > ubuntu.yaml
+k get networkpolicies/netpol

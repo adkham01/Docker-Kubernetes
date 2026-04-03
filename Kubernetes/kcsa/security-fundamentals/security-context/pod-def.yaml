@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-pod
+  labels:
+    app.kubernetes.io/name: web-pod
+spec:
+  securityContext:
+    runAsUser: 1000
+  containers:
+    - name: web-pod
+      image: busybox
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 80
+      securityContext: # securityContext belongs inside the container
+        runAsNonRoot: false
+        capabilities:
+          add: # Capabilities need to be in 'add' or 'drop'
+            - SYS_TIME
