@@ -1,84 +1,258 @@
-Kubernetes Run, Create, and Aply 
-> alias k=kubectl
-> k run
-> k create 
-> k apply
-> k version
+BASIC CONFIGURATION & ALIASES
+=============================
+alias k=kubectl
+k version
+k api-versions
+k api-resources
+k api-resources --namespaced=true
+k get all
+
+CONTEXT & CONFIGURATION
+=======================
+k config view
+k config view --kubeconfig=my-custom-config
+k config use-context prod-user@prod
+k config set-context $(kubectl config current-context) --namespace=dev
+k config --kubeconfig=/root/my-kube-config use-context research
+
+GETTING RESOURCES
+=================
+# Pods
 k get pods
-k create deployment my-nginx --image nginx
-k delete pod my-nginx
-k delete deployment my-nginx
-k create deployment my-apache --image httpd
-k scale deploy my-apache --replicas 2
-k get deploy/my-apache
-k get deploy/my-apache -o wide/yml/json
-k describe deploy/my-apache 
+k get pods -o wide
+k get pods --namespace=default
+k get pods --namespace=prod
+k get pods --all-namespaces
+k get pods -w
+k get pods -l app=nginx
+k get pods --selector app=App1
+k get pods -n=research
+k get pods --as dev-user
+k get pods --namespace=kube-system --no-headers | wc -l
+
+# Deployments & ReplicaSets
+k get deployments
+k get replicaset
+
+# Nodes
 k get nodes
 k get node docker-desktop -o yaml
-k get pods -w
-k get events --watch-only
+
+# Events
 k get events
+k get events --watch-only
+
+# Other Resources
+k get namespaces
+k get serviceaccount
+k get persistentvolume
+k get hpa
+k get networkpolicies
+k get netpol
+
+# Describing Resources
+k describe pod nginx
+k describe deploy/my-apache
+k describe node kubemaster | grep Taint
+k describe role developer
+k describe rolebinding devuser-developer-bindings
+k describe serviceaccount dashboard-sa
+
+CREATING RESOURCES (IMPERATIVE)
+===============================
+# Pods
+k run nginx --image nginx
+k run redis --image=redis -n-finance
+k run tmp-shell --rm -it --image bretfisher/netshoot -- bash
+
+# Deployments
+k create deployment my-nginx --image nginx
+k create deployment my-apache --image httpd
+k create deployment httpenv --image=bretfisher/httpenv
+k create deployment test --image nginx --dry-run=client -o yaml
+
+# Scaling
+k scale deploy my-apache --replicas 2
+k scale deployment httpenv --replicas=5
+k scale deployment nginx --replicas=5
+k scale replicaset myapp-replicaset --replicas=2
+
+# Expose Services
+k expose deployment nginx --port 80
+k expose deployment httpenv --port 8888
+k expose deployment httpenv --port 8888 --name httpenv-np --type NodePort
+k expose deployment/httpenv --port 8888 --name httpenv-lb --type LoadBalancer
+k expose deployment java-app --port=8080 --target-port=8080
+
+# Jobs
+k create job test --image nginx --dry-run=client -o yaml
+
+# Namespaces
+k create namespace dev
+
+# Service Accounts
+k create serviceaccount dashboard-sa
+k create token dashboard-sa
+k create token dashboard-sa | jq -R '{"token": .}' > token.json
+
+CREATING RESOURCES (DECLARATIVE)
+================================
+k create -f pod-definition.yml
+k create -f replicaset-definition.yml
+k create -f deployment.yml --record
+k create -f nginx.yml
+k create -f hpa.yml
+k create -f developer-role.yml
+k create -f cluster-admin-role-binding.yml
+
+UPDATING RESOURCES
+==================
+k apply -f pod-definition.yml
+k apply -f /path/to/config-files
+k replace -f replicaset-definition.yml
+k replace -f nginx.yml
+k replace --force -f nginx.yml
+k replace --force -f /tmp/kubectl-edit-23567.yaml
+k edit replicaset myapp-replicaset
+k edit deployment nginx
+k edit deployment nginx --record=true
+k set image deployment nginx nginx=nginx:1.18
+
+DELETING RESOURCES
+==================
+k delete pod my-nginx
+k delete deployment my-nginx
+k delete replicaset myapp-replicaset
+k delete -f nginx.yml
+kubectl delete pvc myclaim
+
+ROLLOUTS
+========
+k rollout status deployment/myapp-deployment
+k rollout undo deployment myapp-deployment
+k rollout history deployment.apps/myapp-deployment
+
+LOGS
+====
 k logs deploy/my-apache
 k logs deploy/my-apache --follow --tail 1
 k logs pod/my-apache-5c789d6ff-4qlmk -c httpd
-k create depoyment httpenv --image=bretfisher/httpenv
-k scale deployment httpenv --replicas=5
-k expose deployment httpenv --port 8888
-k run tpm-shell --rm -it --image bretfisher/netshoot --bash
-k run tmp-shell --rm -it --image bretfisher/netshoot -- bash
-k expose deployment httpenv --port 8888 --name httpenv-np --type NodePort
-k expose deployment/httpenv --port 8888 --name httpenv-lb --type LoadBalancer
-k create deployment test --image nginx --dry-run=client -o yaml
-k create job test --image nginx --dry-run=client -o yaml
 
-Imperative Commands: 
-  - run
-  - expose
-  - scale
-  - edit 
-  - create deployment
+SECURITY & RBAC
+===============
+# Service Accounts
+k get serviceaccount
+k describe serviceaccount dashboard-sa
+k create serviceaccount dashboard-sa
 
-k api-versions  
-k api-resources
-k explain services --recursive
-k explain services.spec
-k explain deployment.spec.template.spec.volumes.nfc.server
-k apply -f app.yml --dry-run=server
-k diff -f app.yml
-k get pods -l app=nginx
-k get namespaces
-
-KCSA
-kubectl config --kubeconfig=/root/my-kube-config use-context research
-kubectl label ns payroll pod-security.kubernetes.io/<mode>=<security standard>
-kubectl describe pod kube-apiserver-controlplane -n kube-system
-k get pods --as  dev-user
+# Roles & Bindings
+k get roles
+k get rolebindings
 k create role developer --verb=list,create,delete --resource=pods
-k get pods --namespace=kube-system --no-headers | wc -l
+k create -f developer-role.yml
+k create -f cluster-admin-role-binding.yml
 
-Secrets
--------
-k create secret generic my-secret --from-litecccral=key=value \
-  --from-literal=DB_User=root
-k create secret generic my-secret --from-file=<path-to-file>  
-k create namespace dev
-k config set-context $(kubectl config current-context) --namespace=dev
-k get pods -n=research
-k run redis --image=redis -n-finance
-k replace --force -f /tmp/kubectl-edit-23567.yaml
-k get pod ubuntu -o yaml > ubuntu.yaml
-k get networkpolicies/netpol
-k create secret docker-registery regcred \
+# Authorization Checks
+k auth can-i create deployments
+k auth can-i delete nodes
+k auth can-i create deployments --as dev-user
+k auth can-i create pods --as dev-user --namespace test
+
+# Docker Registry Secrets
+k create secret docker-registry regcred \
   --docker-server=private-registry.io \
-  --docker-username=registery-user \
-  --docker-password=registery-password \
-  --docker-email=registery-user@gmail.com
+  --docker-username=registry-user \
+  --docker-password=registry-password \
+  --docker-email=registry-user@gmail.com
+
+# Generic Secrets
+k create secret generic my-secret --from-literal=key=value \
+  --from-literal=DB_User=root
+k create secret generic my-secret --from-file=<path-to-file>
+
+SECRETS & BASE64 ENCODING
+=========================
 echo -n 'mysql' | base64
 echo -n 'cm9vdA==' | base64 --decode
 
-Falco
------
+# JWT Token Decoding
+echo "YOUR_JWT" | cut -d'.' -f2 | base64 -d | jq .
+
+NODE MANAGEMENT
+===============
+# Taints
+k taint nodes node-name key=value:taint-effect
+k taint nodes node1 app=blue:NoSchedule
+
+# Labels
+k label nodes <node-name> <label-key>=<label-value>
+k label nodes node-1 size=Large
+
+STORAGE
+=======
+k get persistentvolume
+
+HORIZONTAL POD AUTOSCALER (HPA)
+===============================
+k get hpa
+
+NAMESPACE MANAGEMENT
+====================
+k create namespace dev
+k get namespaces
+k label ns payroll pod-security.kubernetes.io/<mode>=<security-standard>
+
+NETWORK POLICIES
+================
+k get networkpolicies
+k get netpol
+
+POD SECURITY
+============
+k label ns payroll pod-security.kubernetes.io/<mode>=<security-standard>
+
+EXPLAIN & HELP
+==============
+k explain pods --recursive
+k explain services --recursive
+k explain services.spec
+k explain deployment.spec.template.spec.volumes.nfc.server
+
+DRY RUN & DIFF
+==============
+k apply -f app.yml --dry-run=server
+k diff -f app.yml
+
+EXPORT RESOURCES
+================
+k get pod ubuntu -o yaml > ubuntu.yaml
+k get deploy/my-apache -o wide
+k get deploy/my-apache -o yaml
+k get deploy/my-apache -o json
+
+OPENSSL (CERTIFICATES)
+======================
+openssl genrsa -out ca.key 2048
+openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr
+openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt
+o x509 -in ca.crt -text -noout
+openssl genrsa -out admin.key 2048
+openssl req -new -key admin.key -subj "/CN=kube-admin" -out admin.csr
+openssl x509 -req -in admin.csr -CA ca.crt -CAkey ca.key -out admin.crt
+openssl req -new -key apiserver.key -subj "/CN=kube-apiserver" -out apiserver.csr -config openssl.cnf
+openssl x509 -req -in apiserver.csr -CA ../ca.crt -CAkey ../ca.key -CAcreateserial -out apiserver.crt -extensions v3_req -extfile openssl.cnf -days 1000
+
+FALCO (SECURITY MONITORING)
+===========================
 cat /etc/shadow
-systemctl ststus falco
-journalctl -u falco-modern-bpf => for logs of falco
-/etc/falco/falco.yaml
+systemctl status falco
+journalctl -u falco-modern-bpf
+# Falco configuration file: /etc/falco/falco.yaml
+
+SPECIAL PODS
+============
+k describe pod kube-apiserver-controlplane -n kube-system
+
+IMPERATIVE COMMANDS SUMMARY
+===========================
+Commands: run, expose, scale, edit, create deployment
