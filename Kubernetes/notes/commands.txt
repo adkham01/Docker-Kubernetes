@@ -68,3 +68,17 @@ k run redis --image=redis -n-finance
 k replace --force -f /tmp/kubectl-edit-23567.yaml
 k get pod ubuntu -o yaml > ubuntu.yaml
 k get networkpolicies/netpol
+k create secret docker-registery regcred \
+  --docker-server=private-registry.io \
+  --docker-username=registery-user \
+  --docker-password=registery-password \
+  --docker-email=registery-user@gmail.com
+echo -n 'mysql' | base64
+echo -n 'cm9vdA==' | base64 --decode
+
+Falco
+-----
+cat /etc/shadow
+systemctl ststus falco
+journalctl -u falco-modern-bpf => for logs of falco
+/etc/falco/falco.yaml

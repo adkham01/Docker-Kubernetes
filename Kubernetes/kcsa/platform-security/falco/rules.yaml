@@ -1,0 +1,9 @@
+- rule: Detect Shell inside a container
+  desc: Alert if a shell such as bash is open inside the container
+  condition: container and proc.name in (linux_shells)
+  output: Bash Opened (user=%user.name %container.id)
+  priority: WARING
+- list: linux_shells
+  items: [bash, zsh, ksh, sh, csh]
+- macro: container
+  condition: container.id != host
