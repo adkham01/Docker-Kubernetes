@@ -256,3 +256,6 @@ k describe pod kube-apiserver-controlplane -n kube-system
 IMPERATIVE COMMANDS SUMMARY
 ===========================
 Commands: run, expose, scale, edit, create deployment
+Sniffing, Token theft from file system, Spoofing Service/ARP, compromised pod, Trojan, tampering, repudation, penetration test, denial of service,information disclousure, STRDE
+privlageEscalation, privileged, hostPID, hostIPC, seccomp/Linux system calls, what can do privilege, trust boundaries
+Valid K8s RBAC verbs
