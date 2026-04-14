@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: java-app
+spec: 
+  conatiners:
+  - name: java-app-container
+    image: adkham01/java-app
+  nodeSelector:     
+    size: Large

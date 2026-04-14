@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: taint-node
+spec:
+  podCIDR: 172.17.1.0/24
+  podCIDRs:
+    - 172.17.1.0/24
+  taints:
+    - effect: NoSchedule
+      key: "spray"
+      value: "mortein"
