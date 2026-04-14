@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: java-app
+  name: java-app
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: java-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: java-app
+    spec:
+      containers:
+        - image: adkham01/java-app
+          imagePullPolicy: Always
+          name: java-app
+          resources: {}
+      restartPolicy: Always
