@@ -1,0 +1,10 @@
+apiVersion: kubescheduler.config.k88s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+- schedulerName: custom-scheduler
+  # this option used when we have multiple copies of scheduler running on different nodes
+leaderElection:
+  leaderElect: true
+  resourceNamespace: kube-system
+  resourceName: lock-object-my-scheduler
+     

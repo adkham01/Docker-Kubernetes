@@ -1,0 +1,11 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata: 
+  name: high-proority
+value: 1000000000
+description: "Priority class for mission critical pods"
+  # This is an optional field but it can define default proirty for all pods
+globalDefault: true
+  # This means it will kill or evict pod with lower priority
+  # if we put never it will not evict pods
+preemptionPolicy: PreemtLowerPriority
