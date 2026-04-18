@@ -14,3 +14,12 @@ kubeCtl exec etcd-controlplane -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl ge
   --key /etc/kubernetes/pki/etcd/server.key
 
 k get pods --no-headers | wc -l
+
+ConfigMaps
+----------
+k create cm app-config \
+  --from-literal=APP_COLOR=blu \
+  --fromloteral=APP_MOD=prod
+
+k create cm app-config \
+  --from-file=app_config.properties  
