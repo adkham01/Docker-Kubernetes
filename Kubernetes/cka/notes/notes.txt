@@ -23,3 +23,20 @@ k create cm app-config \
 
 k create cm app-config \
   --from-file=app_config.properties  
+
+Secrets
+-------
+k create secret generic app-secret \
+  --from-literal=DB_HOST=mysql \
+  --from-literal=DB_USER=root \
+  --from-literal=DB_PASSWORD= paswrd
+
+k create secret generic app-secret \
+  --from-file=app_secret.properties
+
+echo -n 'mysql' | base64    
+
+AutoScaling
+-----------
+k autoscale deploy my-app \
+  --cpu-percent=50 --min=1 --max=10
