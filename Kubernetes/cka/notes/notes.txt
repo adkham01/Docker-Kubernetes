@@ -13,6 +13,19 @@ kubeCtl exec etcd-controlplane -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl ge
   --cert /etc/kubernetes/pki/etcd/server.crt \
   --key /etc/kubernetes/pki/etcd/server.key
 
+To take a snapshot from a running etcd server
+
+For offline file-level backup of the data directory
+etcdutl backup \ 
+  --data-dir /var/lib/etcd \ 
+  --backup-dir /backup/etcd-backup
+
+Checking Snapshot Status  
+etcdctl snapshot status /backup/etcd-snapshot.db \ --write-out=table
+
+To restore a snapshot to a new data directory:
+etcdutl snapshot restore /backup/etcd-snapshot.db \ --data-dir /var/lib/etcd-restored
+
 k get pods --no-headers | wc -l
 
 ConfigMaps
@@ -32,7 +45,7 @@ k create secret generic app-secret \
   --from-literal=DB_PASSWORD= paswrd
 
 k create secret generic app-secret \
-  --from-file=app_secret.properties
+  --from-file=app_secret.properties 
 
 echo -n 'mysql' | base64    
 
@@ -40,3 +53,20 @@ AutoScaling
 -----------
 k autoscale deploy my-app \
   --cpu-percent=50 --min=1 --max=10
+
+Cluster maintenance
+-------------------  
+k drain node-1 => Pods are gacefully terminated
+k cordon node-1 => Pods will not be scheduled on the node
+k uncordon node-1 => Node came back for scheduling
+apt-cache madison kubeadm => displays all available versions of kubeadm
+snap info kubeadm => same command for snap
+apt-get install -y --alllow-change-hel-packages kubeadm=version
+kubeadm upgrade plan => checks what k8s versions we can upgrade 
+sudo kubeadm upgrade apply v1.20.0
+apt-get install -y --allow-change-held-packages kublet = 1.20.x kubectl=1.20.xupgrade kublet and kubectl
+
+Security
+--------
+k crt approve admin
+k crt deny admin
