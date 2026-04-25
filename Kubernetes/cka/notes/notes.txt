@@ -70,3 +70,14 @@ Security
 --------
 k crt approve admin
 k crt deny admin
+
+Roles
+k create role pod-reader --verb=get --verb=watch --resources=pods
+k create clusterrole pod-reader --verb= get,list,watch --resources=pods
+
+RoleBindings
+k create rolebinding admin --clusterrole=pod-reader --user=jane --user=jan --group=dev
+k create clusterrolebinding cluster-admin clusterrole=pod-reader --user=jan --group=dev
+
+ServiceAccount
+k create sa dashboard-sa

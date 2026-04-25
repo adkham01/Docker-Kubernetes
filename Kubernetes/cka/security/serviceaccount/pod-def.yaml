@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-dashboard
+spec: 
+  containers: 
+  - name: dashboard-container
+    image: nginx
+  serviceAccountName: dashboard-sa
+  automountServiceAccountToken: false  
