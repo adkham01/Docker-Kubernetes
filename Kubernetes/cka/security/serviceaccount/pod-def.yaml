@@ -7,4 +7,11 @@ spec:
   - name: dashboard-container
     image: nginx
   serviceAccountName: dashboard-sa
-  automountServiceAccountToken: false  
+  automountServiceAccountToken: false
+      volumes:
+      - name: token
+        projected:
+          sources:
+          - serviceAccountToken:
+              path: token
+  

@@ -47,6 +47,12 @@ k create secret generic app-secret \
 k create secret generic app-secret \
   --from-file=app_secret.properties 
 
+k create secret docker-registery regcred \
+  --docker-server=private-registery.io \
+  --docker-username=registery-user \
+  --docker-password= reg-pwd \
+  --docker-email=reg@email.io
+
 echo -n 'mysql' | base64    
 
 AutoScaling
@@ -81,3 +87,4 @@ k create clusterrolebinding cluster-admin clusterrole=pod-reader --user=jan --gr
 
 ServiceAccount
 k create sa dashboard-sa
+
