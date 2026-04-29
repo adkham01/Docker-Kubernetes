@@ -1,0 +1,18 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: secure-gateway
+spec:
+  gatewayClassName: gateway-class
+  listeners:
+  - name: https
+    port: 443
+    protocol: HTTPS
+    tls:
+      mode: Terminate
+      certifications:
+      - kind: Secret
+        name: tls-secret
+    allowedRoutes:
+      kinds:      
+      - kind: HTTPRoute

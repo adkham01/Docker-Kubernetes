@@ -1,0 +1,13 @@
+apiVerson: v1
+kind: Serice
+metadata:
+  name: hello-world-svc
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:    
+  app: hello-world
