@@ -51,7 +51,7 @@ k create secret docker-registery regcred \
   --docker-server=private-registery.io \
   --docker-username=registery-user \
   --docker-password= reg-pwd \
-  --docker-email=reg@email.io
+  --docker-email=reg@email.io 
 
 echo -n 'mysql' | base64    
 
@@ -87,4 +87,30 @@ k create clusterrolebinding cluster-admin clusterrole=pod-reader --user=jan --gr
 
 ServiceAccount
 k create sa dashboard-sa
+
+# Add multiple useful aliases at once
+cat >> ~/.bashrc << 'EOF'
+
+# Kubernetes aliases
+alias k='kubectl'
+alias kg='kubectl get'
+alias kgp='kubectl get pods'
+alias kgs='kubectl get svc'
+alias kgn='kubectl get nodes'
+alias kd='kubectl describe'
+alias kdel='kubectl delete'
+alias krun='kubectl run'
+alias kex='kubectl exec -it'
+alias klog='kubectl logs'
+
+# Set namespace shortcut
+alias kns='kubectl config set-context --current --namespace'
+
+# Enable auto-completion for k
+source <(kubectl completion bash)
+complete -o default -F __start_kubectl k
+EOF
+
+# Reload configuration
+source ~/.bashrc
 
