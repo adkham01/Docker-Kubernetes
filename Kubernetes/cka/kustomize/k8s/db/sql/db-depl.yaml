@@ -20,4 +20,4 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: db-credentials
-                  key: username
+                  key: username               
