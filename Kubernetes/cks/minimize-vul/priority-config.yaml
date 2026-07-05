@@ -1,0 +1,24 @@
+apiVersion: flowcontrol.apiserver.k8s.io/v1beta1
+kind: PriorityLevelConfiguration
+metadata: 
+  name: high-priority
+spec:
+  type: Limited
+  limited: 
+    assuredConcurrencyShares: 10 # High priority
+concurrency:
+  limitResponse:
+    type: Queue
+---
+apiVersion: flowcontrol.apiserver.k8s.io/v1beta1
+kind: PriorityLevelConfiguration
+metadata:
+  name: low-priority
+spec: 
+  type: Limited
+  limited:
+    assuredConcurrencyShares: 1 # Low priority gets less
+concurrency:
+  limitResponse:
+    type: Queue  
+
