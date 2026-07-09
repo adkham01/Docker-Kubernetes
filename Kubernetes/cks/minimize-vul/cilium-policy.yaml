@@ -1,0 +1,17 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata: 
+  name: allow-encrypted-traffic
+spec:
+  endpointSelector:
+    matchLabels: 
+      app: my-app
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        app: myapp
+    toPorts:      
+    - ports: 
+      - port: "80"
+        protocol: TCP  
+
