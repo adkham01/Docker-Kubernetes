@@ -1,0 +1,10 @@
+all:
+  children:
+    app: 
+      hosts:
+        node-1:
+    db: 
+      hosts: 
+        node-2:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
